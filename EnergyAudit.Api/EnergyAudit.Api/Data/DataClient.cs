@@ -13,7 +13,6 @@ namespace EnergyAudit.Api.Data
         private readonly IDocumentClient _client;
         private const string _database = "EnergyAudit";
 
-
         public DataClient()
         {
             var endpoint = new Uri("https://localhost:8081");
@@ -27,6 +26,17 @@ namespace EnergyAudit.Api.Data
             var request = _client.CreateDocumentQuery<Appliance>(query);
             var appliances = request.ToList();
             return appliances;
+        }
+
+        public IEnumerable<Model.User> Insert()
+        {
+            var query = UriFactory.CreateDocumentCollectionUri(_database, "Users");
+            var request = _client.UpsertDocumentAsync(query, );
+            request.Wait();
+            var response = request.Result;
+
+            // DONE: create model for user
+            // insert method takes in a user and passes that to UpsertDocumentAsync request
         }
     }
 }

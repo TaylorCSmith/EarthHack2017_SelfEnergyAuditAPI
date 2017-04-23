@@ -12,6 +12,8 @@ namespace EnergyAudit.Api.Controllers
     public class EnergyAuditController : Controller
     {
         // GET api/values
+        // include calculations for difference in amperage
+        // return value of difference
         [HttpGet]
         [Route("test")]
         public IEnumerable<Appliance> Get()
@@ -20,5 +22,11 @@ namespace EnergyAudit.Api.Controllers
             var appliances = client.Test();
             return appliances;
         }
+
+        // http post request
+        // move current appliance to previous appliance
+        // send current appliance
+        // store inside of current appliance...
+
     }
 }
