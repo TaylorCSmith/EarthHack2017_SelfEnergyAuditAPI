@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using EnergyAudit.Api.Data;
+using EnergyAudit.Api.Model;
 
 namespace EnergyAudit.Api.Controllers
 {
@@ -12,9 +14,11 @@ namespace EnergyAudit.Api.Controllers
         // GET api/values
         [HttpGet]
         [Route("test")]
-        public IEnumerable<string> Get()
+        public IEnumerable<Appliance> Get()
         {
-            return new string[] { "value1", "value2" };
+            var client = new DataClient();
+            var appliances = client.Test();
+            return appliances;
         }
     }
 }
