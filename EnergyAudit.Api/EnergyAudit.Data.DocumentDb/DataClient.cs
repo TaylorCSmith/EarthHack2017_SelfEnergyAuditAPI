@@ -1,4 +1,5 @@
-﻿using EnergyAudit.Data.DocumentDb.Extensions;
+﻿using EnergyAudit.Data;
+using EnergyAudit.Data.DocumentDb.Extensions;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using System;
@@ -8,13 +9,16 @@ using System.Threading.Tasks;
 
 namespace EnergyAudit.Api.Data
 {
-    public class DataClient
+    public class DataClient : IDataClient
     {
         private readonly IDocumentClient _client;
         private const string _database = "EnergyAudit";
 
         public DataClient()
         {
+            // known lack of security, implemented this way for simplicity. Please don't store 100s of thousands of documents in my 
+            //Azure subscription. I'm a poor college student with abusive friends (especially David, definitely not Matt), and  I can't afford.
+            // my bill to be racked up by people adding documents to my database. By the way, the money is important for my raging alochol problem.
             var endpoint = new Uri("https://energyaudit.documents.azure.com:443/");
             var key = "k1gX3AH7Bjk7VctIwtKhpI28q2GjHqsagbplBTzfht8ccLXZW1I8qYFK0o4Tqi6yzG0ZoMAKmOLYPjVtWYaEug==";
             _client = new DocumentClient(endpoint, key);
