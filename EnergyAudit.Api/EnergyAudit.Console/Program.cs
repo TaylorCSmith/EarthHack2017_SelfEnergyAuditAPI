@@ -11,33 +11,18 @@ namespace EnergyAudit.ConsoleApp
         {
             var client = new DataClient();
 
-            var appliance1 = new Appliance
+            var appliances = client.Query<Appliance>();
+            var previous = appliances.First();
+
+            var user = new User
             {
-                ApplianceName = "IcyHot Boosted Monkey", 
-                Brand = "Bronze V",
-                CCE = true,
-                Amperage = "2343243243",
-                EnergyStar = false
+                Name = "Taylor Smith",
+                PreviousAppliance = previous,
             };
 
-            var appliance2 = new Appliance
-            {
-                ApplianceName = "Carried to Bronze V",
-                Brand = "Zoo",
-                CCE = false,
-                Amperage = "2343",
-                EnergyStar = false
-            };
-
-            var task = client.Insert(appliance1);
-            var task2 = client.Insert(appliance2);
+            var task = client.Insert(user);
             task.Wait();
-            task2.Wait();
-            var documentId = task.Result;
 
-            var document = client.Query<Appliance>().Where(d => d.Id == documentId).FirstOrDefault();
-
-            Console.WriteLine(document.Amperage);
             Console.ReadLine();
         }
     }
