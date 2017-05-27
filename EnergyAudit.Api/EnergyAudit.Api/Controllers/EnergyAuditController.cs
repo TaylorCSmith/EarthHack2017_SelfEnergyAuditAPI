@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using EnergyAudit.Api.Data;
 using EnergyAudit.Api.Model;
 using EnergyAudit.Data;
 
@@ -26,11 +23,5 @@ namespace EnergyAudit.Api.Controllers
             var user = _client.Query<User>().FirstOrDefault();
             return Ok(user);
         }
-
-        // http post request
-        // move current appliance to previous appliance
-        // send current appliance
-        // store inside of current appliance...
-
     }
 }
