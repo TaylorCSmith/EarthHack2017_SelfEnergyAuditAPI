@@ -15,8 +15,8 @@ namespace EnergyAudit.Api.Data
 
         public DataClient()
         {
-            var endpoint = new Uri("https://localhost:8081");
-            var key = "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==";
+            var endpoint = new Uri("https://energyaudit.documents.azure.com:443/");
+            var key = "k1gX3AH7Bjk7VctIwtKhpI28q2GjHqsagbplBTzfht8ccLXZW1I8qYFK0o4Tqi6yzG0ZoMAKmOLYPjVtWYaEug==";
             _client = new DocumentClient(endpoint, key);
         }
 
@@ -39,7 +39,13 @@ namespace EnergyAudit.Api.Data
         //    // insert method takes in a user and passes that to UpsertDocumentAsync request
         //}
 
-        public async void CreateCollection<T>()
+        public async Task CreateDatabase(string name = _database)
+        {
+            var database = new Database { Id = name };
+            var response = await _client.CreateDatabaseAsync(database);
+        }
+
+        public async Task CreateCollection<T>()
         {
             var collectionName = typeof(T).Name;
             var databaseUri = UriFactory.CreateDatabaseUri(_database);
