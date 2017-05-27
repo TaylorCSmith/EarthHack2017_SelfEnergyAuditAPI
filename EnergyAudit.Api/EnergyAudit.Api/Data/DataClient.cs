@@ -28,15 +28,24 @@ namespace EnergyAudit.Api.Data
             return appliances;
         }
 
-        public IEnumerable<Model.User> Insert()
-        {
-            var query = UriFactory.CreateDocumentCollectionUri(_database, "Users");
-            var request = _client.UpsertDocumentAsync(query, );
-            request.Wait();
-            var response = request.Result;
+        //public IEnumerable<Model.User> Insert()
+        //{
+        //    var query = UriFactory.CreateDocumentCollectionUri(_database, "Users");
+        //    var request = _client.UpsertDocumentAsync(query, );
+        //    request.Wait();
+        //    var response = request.Result;
 
-            // DONE: create model for user
-            // insert method takes in a user and passes that to UpsertDocumentAsync request
+        //    // DONE: create model for user
+        //    // insert method takes in a user and passes that to UpsertDocumentAsync request
+        //}
+
+        public async void CreateCollection<T>()
+        {
+            var collectionName = typeof(T).Name;
+            var databaseUri = UriFactory.CreateDatabaseUri(_database);
+
+            var collection = new DocumentCollection { Id = collectionName };
+            var response = await _client.CreateDocumentCollectionAsync(databaseUri, collection);
         }
     }
 }

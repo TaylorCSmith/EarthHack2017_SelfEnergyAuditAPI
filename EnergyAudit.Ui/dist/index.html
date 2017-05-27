@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="energyaudit">
+<head>
+    <meta charset="utf-8" />
+    <title>Energy Audit</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" ui-sref="home">VS DIY Energy Audit</a>
+
+                <!-- getting base links before formating using angular or css -->
+                <a class="navbar-box" href="home.html">HOME</a>
+                <a class="navbar-box" href="MYAUDIT">My Audit</a>
+                <a class="navbar-box" href="General Tips">General Tips</a>
+                <a class="navbar-box" href="Whatsanenergyaudit">Whats an Energy Audit?</a>
+                <a class="navbar-box" href="FAQ">FAQ</a>
+                <a class="text-right" href="signin">Sign In</a>
+
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <ui-view></ui-view>
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <p class="text-center">The VS Team</p>
+        </div>
+    </nav>
+    <script src="app.min.js"></script>
+</body>
+</html>
