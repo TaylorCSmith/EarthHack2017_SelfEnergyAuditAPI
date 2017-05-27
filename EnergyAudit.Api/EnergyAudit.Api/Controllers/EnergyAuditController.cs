@@ -14,14 +14,14 @@ namespace EnergyAudit.Api.Controllers
         // GET api/values
         // include calculations for difference in amperage
         // return value of difference
-        [HttpGet]
-        [Route("test")]
-        public IEnumerable<Appliance> Get()
-        {
-            var client = new DataClient();
-            var appliances = client.Test();
-            return appliances;
-        }
+        //[HttpGet]
+        //[Route("test")]
+        //public IEnumerable<Appliance> Get()
+        //{
+        //    var client = new DataClient();
+        //    var appliances = client.Test();
+        //    return appliances;
+        //}
 
         // http post request
         // move current appliance to previous appliance

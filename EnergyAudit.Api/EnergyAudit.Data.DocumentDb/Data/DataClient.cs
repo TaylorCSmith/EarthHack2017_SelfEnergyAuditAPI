@@ -1,4 +1,4 @@
-﻿using EnergyAudit.Api.Model;
+﻿using EnergyAudit.Data.DocumentDb.Extensions;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using System;
@@ -20,24 +20,26 @@ namespace EnergyAudit.Api.Data
             _client = new DocumentClient(endpoint, key);
         }
 
-        public IEnumerable<Appliance> Test()
+        public IEnumerable<T> Query<T>()
         {
-            var query = UriFactory.CreateDocumentCollectionUri(_database, "Appliances");
-            var request = _client.CreateDocumentQuery<Appliance>(query);
+            var collection = typeof(T).GetCollectionId();
+
+            var query = UriFactory.CreateDocumentCollectionUri(_database, collection);
+            var request = _client.CreateDocumentQuery<T>(query);
             var appliances = request.ToList();
             return appliances;
         }
 
-        //public IEnumerable<Model.User> Insert()
-        //{
-        //    var query = UriFactory.CreateDocumentCollectionUri(_database, "Users");
-        //    var request = _client.UpsertDocumentAsync(query, );
-        //    request.Wait();
-        //    var response = request.Result;
+        public async Task<Guid> Insert<T>(T document)
+        {
+            var collection = typeof(T).GetCollectionId();
 
-        //    // DONE: create model for user
-        //    // insert method takes in a user and passes that to UpsertDocumentAsync request
-        //}
+            var collectionUri = UriFactory.CreateDocumentCollectionUri(_database, collection);
+            var response = await _client.UpsertDocumentAsync(collectionUri, document);
+            var documentId = response.Resource.Id;
+
+            return new Guid(documentId);
+        }
 
         public async Task CreateDatabase(string name = _database)
         {
@@ -47,7 +49,7 @@ namespace EnergyAudit.Api.Data
 
         public async Task CreateCollection<T>()
         {
-            var collectionName = typeof(T).Name;
+            var collectionName = typeof(T).GetCollectionId();
             var databaseUri = UriFactory.CreateDatabaseUri(_database);
 
             var collection = new DocumentCollection { Id = collectionName };
