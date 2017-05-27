@@ -49,8 +49,8 @@ namespace EnergyAudit.Api
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
-            
+            app.UseCors(c => c.AllowAnyOrigin());
+            app.UseMvc();      
         }
     }
 }

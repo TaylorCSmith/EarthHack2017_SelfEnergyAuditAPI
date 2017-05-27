@@ -21,9 +21,9 @@ namespace EnergyAudit.Api.Controllers
 
         [HttpGet]
         [Route("user")]
-        public IActionResult Get()
+        public IActionResult GetUser()
         {
-            var user = _client.Query<User>();
+            var user = _client.Query<User>().FirstOrDefault();
             return Ok(user);
         }
 
