@@ -5,7 +5,7 @@ module.exports = function(angular) {
     ];
 
     angular.module(module, dependencies)
-        .controller('home.controller', ['$scope', '$state', require('./home.controller')])
+        .controller('home.controller', ['$scope', '$state', '$http', require('./home.controller')])
         .config(['$stateProvider', require('./home.config')])
 
     return module;
